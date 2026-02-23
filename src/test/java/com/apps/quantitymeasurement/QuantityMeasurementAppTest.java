@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class QuantityMeasurementAppTest {
 
 
+
     // UC1: Feet to Feet
     @Test
     void FeetToFeet_SameValue() {
@@ -59,6 +60,7 @@ public class QuantityMeasurementAppTest {
 
     // UC3: Generic Equality and Comparison
     @Test
+
     void SameReference() {
         Length l1 = new Length(3.0, LengthUnit.FEET);
 
@@ -92,6 +94,7 @@ public class QuantityMeasurementAppTest {
     // UC4: Yard and Centimeter Tests
 
     @Test
+
     void Yard_SameValue() {
         Length l1 = new Length(1.0, LengthUnit.YARDS);
         Length l2 = new Length(1.0, LengthUnit.YARDS);
@@ -137,10 +140,12 @@ public class QuantityMeasurementAppTest {
         Length l2 = new Length(2.0, LengthUnit.FEET);
 
         assertFalse(l1.equals(l2));
+
     }
 
     // UC4 : Centimeter Tests
     @Test
+
     void CentimeterToCentimeter_SameValue() {
         Length l1 = new Length(2.0, LengthUnit.CENTIMETERS);
         Length l2 = new Length(2.0, LengthUnit.CENTIMETERS);
@@ -154,6 +159,7 @@ public class QuantityMeasurementAppTest {
         Length l2 = new Length(0.393701, LengthUnit.INCHES);
 
         assertTrue(l1.equals(l2));
+
     }
 
     @Test

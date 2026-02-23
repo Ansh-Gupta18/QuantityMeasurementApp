@@ -1,5 +1,4 @@
 
-
 package com.apps.quantitymeasurement;
 
 public class QuantityMeasurementApp {
@@ -37,5 +36,6 @@ public class QuantityMeasurementApp {
         demonstrateFeetEquality();
         demonstrateInchesEquality();
         demonstrateFeetInchesComparison();
+
     }
 }
