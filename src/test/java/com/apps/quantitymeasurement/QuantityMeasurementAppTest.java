@@ -1,91 +1,119 @@
-
 package com.apps.quantitymeasurement;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.apps.quantitymeasurement.QuantityMeasurementApp.Feet;
+import com.apps.quantitymeasurement.QuantityMeasurementApp.Inches;
 
 /**
- * Unit tests for QuantityMeasurementApp.Feet equality
+ * Unit tests for Feet and Inches equality
  */
 public class QuantityMeasurementAppTest {
 
-    /**
-     * Test Case 1:
-     * givenSameFeetValue_whenCompared_shouldReturnTrue
-     */
+    // ============================
+    // FEET TEST CASES (UC1)
+    // ============================
+
     @Test
     public void testFeetEquality_SameValue() {
 
-        // Arrange
         Feet feet1 = new Feet(1.0);
         Feet feet2 = new Feet(1.0);
 
-        // Act & Assert
         assertTrue(feet1.equals(feet2),
-                "Expected feet measurements with same value to be equal");
+                "Expected same feet values to be equal");
     }
 
-    /**
-     * Test Case 2:
-     * givenDifferentFeetValue_whenCompared_shouldReturnFalse
-     */
     @Test
     public void testFeetEquality_DifferentValue() {
 
-        // Arrange
         Feet feet1 = new Feet(1.0);
         Feet feet2 = new Feet(2.0);
 
-        // Act & Assert
         assertFalse(feet1.equals(feet2),
-                "Expected feet measurements with different values to NOT be equal");
+                "Expected different feet values to NOT be equal");
     }
 
-    /**
-     * Test Case 3:
-     * givenFeetAndNull_whenCompared_shouldReturnFalse
-     */
     @Test
     public void testFeetEquality_NullComparison() {
 
-        // Arrange
         Feet feet = new Feet(1.0);
 
-        // Act & Assert
         assertFalse(feet.equals(null),
-                "Expected feet measurement compared with null to return false");
+                "Expected feet compared with null to return false");
     }
 
-    /**
-     * Test Case 4:
-     * givenFeetAndDifferentClass_whenCompared_shouldReturnFalse
-     */
     @Test
     public void testFeetEquality_DifferentClass() {
 
-        // Arrange
         Feet feet = new Feet(1.0);
-        String otherObject = "Not a Feet object";
+        Inches inches = new Inches(12.0);
 
-        // Act & Assert
-        assertFalse(feet.equals(otherObject),
-                "Expected comparison with different class to return false");
+        assertFalse(feet.equals(inches),
+                "Expected feet and inches comparison to return false");
     }
 
-    /**
-     * Test Case 5:
-     * givenSameFeetReference_whenCompared_shouldReturnTrue
-     */
     @Test
     public void testFeetEquality_SameReference() {
 
-        // Arrange
         Feet feet = new Feet(1.0);
 
-        // Act & Assert
         assertTrue(feet.equals(feet),
                 "Expected same reference comparison to return true");
     }
+
+
+    // ============================
+    // INCHES TEST CASES (UC2)
+    // ============================
+
+    @Test
+    public void testInchesEquality_SameValue() {
+
+        Inches inch1 = new Inches(12.0);
+        Inches inch2 = new Inches(12.0);
+
+        assertTrue(inch1.equals(inch2),
+                "Expected same inches values to be equal");
+    }
+
+    @Test
+    public void testInchesEquality_DifferentValue() {
+
+        Inches inch1 = new Inches(12.0);
+        Inches inch2 = new Inches(24.0);
+
+        assertFalse(inch1.equals(inch2),
+                "Expected different inches values to NOT be equal");
+    }
+
+    @Test
+    public void testInchesEquality_NullComparison() {
+
+        Inches inch = new Inches(12.0);
+
+        assertFalse(inch.equals(null),
+                "Expected inches compared with null to return false");
+    }
+
+    @Test
+    public void testInchesEquality_DifferentClass() {
+
+        Inches inch = new Inches(12.0);
+        Feet feet = new Feet(1.0);
+
+        assertFalse(inch.equals(feet),
+                "Expected inches and feet comparison to return false");
+    }
+
+    @Test
+    public void testInchesEquality_SameReference() {
+
+        Inches inch = new Inches(12.0);
+
+        assertTrue(inch.equals(inch),
+                "Expected same reference comparison to return true");
+    }
+
 }
