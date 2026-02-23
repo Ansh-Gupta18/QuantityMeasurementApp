@@ -1,7 +1,7 @@
 package com.apps.quantitymeasurement;
 public class QuantityMeasurementApp {
 
-    // Helper method to compare two lengths
+    // Helper method to compare two length
     public static boolean demonstrateLengthComparison(double value1, Length.LengthUnit unit1,
                                                       double value2, Length.LengthUnit unit2) {
         Length length1 = new Length(value1, unit1);
