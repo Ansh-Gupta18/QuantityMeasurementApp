@@ -4,7 +4,7 @@ public class Length {
     private double value;
     private LengthUnit unit;
 
-    // Enum for all supported units
+    // Enum for all supported unit
     public enum LengthUnit {
         FEET(12.0),         // 1 foot = 12 inches
         INCHES(1.0),        // base unit

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 public class QuantityMeasurementAppTest {
 
-    @Test
+    @Test //Tests
     public void testFeetEquality() {
         assertTrue(new Length(1.0, Length.LengthUnit.FEET).equals(new Length(1.0, Length.LengthUnit.FEET)));
     }
