@@ -1,32 +1,19 @@
+
 package com.apps.quantitymeasurement;
 
-public class Length {
-    private double value;
-    private LengthUnit unit;
-
+//feature/UC4-YardEquality
+import java.util.Objects;
     // Enum for all supported unit
     public enum LengthUnit {
         FEET(12.0),         // 1 foot = 12 inches
         INCHES(1.0),        // base unit
         YARDS(36.0),        // 1 yard = 3 feet = 36 inches
         CENTIMETERS(0.393701); // 1 cm = 0.393701 inches
+ dev
 
-        private final double conversionFactor;
-
-        LengthUnit(double conversionFactor) {
-            this.conversionFactor = conversionFactor;
-        }
-
-        public double getConversionFactor() {
-            return conversionFactor;
-        }
-    }
-
-    // Constructor
+// Generic Length class applying DRY principle
+public class Length {
     public Length(double value, LengthUnit unit) {
-        if (Double.isNaN(value) || Double.isInfinite(value)) {
-            throw new IllegalArgumentException("Value must be a valid number");
-        }
         if (unit == null) {
             throw new IllegalArgumentException("Unit cannot be null");
         }
@@ -34,27 +21,44 @@ public class Length {
         this.unit = unit;
     }
 
-    // Convert to base unit (inches)
     private double convertToBaseUnit() {
         return value * unit.getConversionFactor();
     }
 
-    // Compare lengths
     public boolean compare(Length other) {
-        if (other == null) return false;
-        return Double.compare(this.convertToBaseUnit(), other.convertToBaseUnit()) == 0;
+        if (other == null) {
+            return false;
+        }
+        return Double.compare(
+                this.convertToBaseUnit(),
+                other.convertToBaseUnit()
+        ) == 0;
     }
 
+    
+    private double round(double value) {
+        return Math.round(value * 10000.0) / 10000.0;
+    }
+    
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Length)) return false;
-        Length that = (Length) o;
-        return compare(that);
+    public boolean equals(Object obj) {
+
+        if (this == obj) return true;
+        if (!(obj instanceof Length)) return false;
+
+        Length other = (Length) obj;
+
+        return round(this.convertToBaseUnit())
+                == round(other.convertToBaseUnit());
     }
 
     @Override
     public int hashCode() {
-        return Double.valueOf(convertToBaseUnit()).hashCode();
+        return Objects.hash(round(convertToBaseUnit()));
+    }
+
+    @Override
+    public String toString() {
+        return "Quantity(" + value + ", " + unit + ")";
     }
 }
