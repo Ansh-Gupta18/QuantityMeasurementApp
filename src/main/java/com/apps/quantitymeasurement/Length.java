@@ -1,28 +1,47 @@
-
 package com.apps.quantitymeasurement;
 
-//feature/UC4-YardEquality
 import java.util.Objects;
-    // Enum for all supported unit
-    public enum LengthUnit {
-        FEET(12.0),         // 1 foot = 12 inches
-        INCHES(1.0),        // base unit
-        YARDS(36.0),        // 1 yard = 3 feet = 36 inches
-        CENTIMETERS(0.393701); // 1 cm = 0.393701 inches
- dev
 
-// Generic Length class applying DRY principle
+// Generic Length class applying DRY principles
 public class Length {
+
+    private final double value;
+    private final LengthUnit unit;
+
     public Length(double value, LengthUnit unit) {
-        if (unit == null) {
-            throw new IllegalArgumentException("Unit cannot be null");
-        }
+        validateValue(value);
+        validateUnit(unit);
         this.value = value;
         this.unit = unit;
     }
 
+
+
+
+    // Conversion Methods
+    public static double convert(double value, LengthUnit source, LengthUnit target) {
+
+        validateValue(value);
+        validateUnit(source);
+        validateUnit(target);
+
+        if (source == target) {
+            return value;
+        }
+
+        return value * (source.getConversionFactor() / target.getConversionFactor());
+    }
+
+    public Length convertTo(LengthUnit targetUnit) {
+        double convertedValue = convert(this.value, this.unit, targetUnit);
+        return new Length(convertedValue, targetUnit);
+    }
+
+
+
+    // Equality and Comparison Methods
     private double convertToBaseUnit() {
-        return value * unit.getConversionFactor();
+        return this.value * unit.getConversionFactor();
     }
 
     public boolean compare(Length other) {
@@ -35,30 +54,44 @@ public class Length {
         ) == 0;
     }
 
-    
-    private double round(double value) {
-        return Math.round(value * 10000.0) / 10000.0;
-    }
-    
     @Override
     public boolean equals(Object obj) {
 
-        if (this == obj) return true;
-        if (!(obj instanceof Length)) return false;
+        if (this == obj)
+            return true;
+
+        if (obj == null || getClass() != obj.getClass())
+            return false;
 
         Length other = (Length) obj;
 
-        return round(this.convertToBaseUnit())
-                == round(other.convertToBaseUnit());
+        return Double.compare(
+                this.convertToBaseUnit(),
+                other.convertToBaseUnit()
+        ) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(round(convertToBaseUnit()));
+        return Objects.hash(convertToBaseUnit());
     }
-
+    
     @Override
     public String toString() {
         return "Quantity(" + value + ", " + unit + ")";
+    }
+
+
+    // Validation Methods for Lengths 
+    private static void validateUnit(LengthUnit unit) {
+        if (unit == null) {
+            throw new IllegalArgumentException("Unit cannot be null");
+        }
+    }
+
+    private static void validateValue(double value) {
+        if (!Double.isFinite(value)) {
+            throw new IllegalArgumentException("Value must be finite");
+        }
     }
 }

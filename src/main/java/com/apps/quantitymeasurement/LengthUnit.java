@@ -1,3 +1,4 @@
+
 package com.apps.quantitymeasurement;
 
 
@@ -7,7 +8,7 @@ public enum LengthUnit {
     INCHES(1.0),
     YARDS(36.0),
     CENTIMETERS(0.393700787);     
-
+//Methods
     private final double conversionFactor;
 
     LengthUnit(double conversionFactor) {

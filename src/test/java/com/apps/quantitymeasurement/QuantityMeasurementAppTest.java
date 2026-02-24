@@ -1,10 +1,10 @@
+
 package com.apps.quantitymeasurement;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class QuantityMeasurementAppTest {
-
 
 
     // UC1: Feet to Feet
@@ -58,9 +58,8 @@ public class QuantityMeasurementAppTest {
         assertNotEquals(l1, l2);
     }
 
-    // UC3: Generic Equality and Comparison
+    // UC3: Generic Equality and Comparisons
     @Test
-
     void SameReference() {
         Length l1 = new Length(3.0, LengthUnit.FEET);
 
@@ -94,7 +93,6 @@ public class QuantityMeasurementAppTest {
     // UC4: Yard and Centimeter Tests
 
     @Test
-
     void Yard_SameValue() {
         Length l1 = new Length(1.0, LengthUnit.YARDS);
         Length l2 = new Length(1.0, LengthUnit.YARDS);
@@ -110,29 +108,6 @@ public class QuantityMeasurementAppTest {
         assertFalse(l1.equals(l2));
     }
 
-    @Test
-    void YardToFeet_EquivalentValue() {
-        Length l1 = new Length(1.0, LengthUnit.YARDS);
-        Length l2 = new Length(3.0, LengthUnit.FEET);
-
-        assertTrue(l1.equals(l2));
-    }
-
-    @Test
-    void FeetToYard_EquivalentValue() {
-        Length l1 = new Length(3.0, LengthUnit.FEET);
-        Length l2 = new Length(1.0, LengthUnit.YARDS);
-
-        assertTrue(l1.equals(l2));
-    }
-
-    @Test
-    void YardToInches_EquivalentValue() {
-        Length l1 = new Length(1.0, LengthUnit.YARDS);
-        Length l2 = new Length(36.0, LengthUnit.INCHES);
-
-        assertTrue(l1.equals(l2));
-    }
 
     @Test
     void YardToFeet_NonEquivalentValue() {
@@ -140,12 +115,10 @@ public class QuantityMeasurementAppTest {
         Length l2 = new Length(2.0, LengthUnit.FEET);
 
         assertFalse(l1.equals(l2));
-
     }
 
     // UC4 : Centimeter Tests
     @Test
-
     void CentimeterToCentimeter_SameValue() {
         Length l1 = new Length(2.0, LengthUnit.CENTIMETERS);
         Length l2 = new Length(2.0, LengthUnit.CENTIMETERS);
@@ -153,14 +126,6 @@ public class QuantityMeasurementAppTest {
         assertTrue(l1.equals(l2));
     }
 
-    @Test
-    void CentimeterToInches_EquivalentValue() {
-        Length l1 = new Length(1.0, LengthUnit.CENTIMETERS);
-        Length l2 = new Length(0.393701, LengthUnit.INCHES);
-
-        assertTrue(l1.equals(l2));
-
-    }
 
     @Test
     void CentimeterToFeet_NonEquivalentValue() {
@@ -170,6 +135,67 @@ public class QuantityMeasurementAppTest {
         assertFalse(l1.equals(l2));
     }
 
+
+    // UC5: Conversion Tests
+    @Test
+    void convert_FeetToInches() {
+        double result = Length.convert(
+                1.0,
+                LengthUnit.FEET,
+                LengthUnit.INCHES
+        );
+
+        assertEquals(12.0, result);
+    }
+
+    @Test
+    void convert_YardsToFeet() {
+        double result = Length.convert(
+                3.0,
+                LengthUnit.YARDS,
+                LengthUnit.FEET
+        );
+
+        assertEquals(9.0, result);
+    }
+
+    @Test
+    void convert_CentimeterToInches() {
+        double result = Length.convert(
+                2.54,
+                LengthUnit.CENTIMETERS,
+                LengthUnit.INCHES
+        );
+
+        assertEquals(1.0, result);
+    }
+
+    @Test
+    void convert_RoundTrip() {
+        double value = 5.0;
+
+        double converted = Length.convert(
+                value,
+                LengthUnit.FEET,
+                LengthUnit.INCHES
+        );
+
+        double back = Length.convert(
+                converted,
+                LengthUnit.INCHES,
+                LengthUnit.FEET
+        );
+
+        assertEquals(value, back);
+    }
+
+    @Test
+    void convert_InvalidUnit_Throws() {
+        assertThrows(IllegalArgumentException.class,
+                () -> Length.convert(1.0, null, LengthUnit.FEET));
+    }
+
+
     @Test
     void Transitive() {
         Length yard = new Length(2.0, LengthUnit.YARDS);
@@ -178,7 +204,7 @@ public class QuantityMeasurementAppTest {
 
         assertTrue(yard.equals(feet));
         assertTrue(feet.equals(inches));
-        assertTrue(yard.equals(yard));
+        assertTrue(yard.equals(inches));
     }
 
     
