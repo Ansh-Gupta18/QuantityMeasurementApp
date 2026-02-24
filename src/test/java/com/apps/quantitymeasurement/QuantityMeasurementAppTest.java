@@ -58,7 +58,7 @@ public class QuantityMeasurementAppTest {
         assertNotEquals(l1, l2);
     }
 
-    // UC3: Generic Equality and Comparison
+    // UC3: Generic Equality and Comparisons
     @Test
     void SameReference() {
         Length l1 = new Length(3.0, LengthUnit.FEET);

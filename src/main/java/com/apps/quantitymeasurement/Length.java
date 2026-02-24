@@ -2,7 +2,7 @@ package com.apps.quantitymeasurement;
 
 import java.util.Objects;
 
-// Generic Length class applying DRY principle
+// Generic Length class applying DRY principles
 public class Length {
 
     private final double value;
