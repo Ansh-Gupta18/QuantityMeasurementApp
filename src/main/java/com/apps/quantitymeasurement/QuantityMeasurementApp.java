@@ -3,7 +3,7 @@ package com.apps.quantitymeasurement;
 public class QuantityMeasurementApp {
 
 
-    // UC1 to UC4 : Testing Equality and Comparison
+    // UC1 to UC4 : Testing Equality and Comparisons
     public static boolean demonstrateLengthEquality(Length l1, Length l2) {
         return l1.equals(l2);
     }
