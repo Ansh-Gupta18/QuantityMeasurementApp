@@ -1,12 +1,13 @@
 ### UC1 – Feet Equality Verification
 - Branch: feature/UC1-FeetEquality
 
- Objective
+--  Objective
 
 - Check if two measurements in Feet are equal
 - Correctly override equals() for comparison
 - Apply Test-Driven Development principles
- Implementation
+
+ -- Implementation
 
 - Defined Feet class for encapsulating measurement
 - Added precise equality logic using Double.compare()
@@ -20,12 +21,13 @@
 ###  UC2 – Feet and Inches Equality Verification
 - Branch: feature/UC2-InchEquality
 
-Objective
+-- Objective
 
 - Extend UC1 to check equality of measurements in Inches along with Feet
 - Ensure proper equals() logic for both units
 - Maintain Test-Driven Development approach
-Implementation
+
+-- Implementation
 
 - Defined Inches class alongside Feet class
 - Added equality logic for Inches using Double.compare()
@@ -41,7 +43,7 @@ Implementation
 
 ### UC3 – Generic Quantity Class for DRY Principle
 - Branch: feature/UC3-GenericLength
-Objective
+-- Objective
 
 - Refactor Feet and Inches classes into a single QuantityLength class
 
@@ -49,7 +51,9 @@ Objective
 
 - Maintain all equality and conversion functionality from UC1 & UC2
 
-- Enable easy extension for new units Implementation
+- Enable easy extension for new units
+
+  --  Implementation
 
 - Introduced LengthUnit enum for all supported units and conversion factors
 
@@ -71,7 +75,7 @@ Objective
 
 ### UC4 – Extended Unit Support (Yards & Centimeters)
 - Branch: feature/UC4-YardEquality
-Objective
+-- Objective
 
 - Extend QuantityLength class to support Yards and Centimeters
 
@@ -79,7 +83,9 @@ Objective
 
 - Preserve all previous UC1–UC3 functionality
 
-- Ensure DRY principle while adding new units Implementation
+- Ensure DRY principle while adding new units
+
+  -- Implementation
 
 - Added YARDS and CENTIMETERS to LengthUnit enum with proper conversion factors
 
@@ -92,3 +98,36 @@ Objective
 - All previous tests from UC1–UC3 continue to pass
 
 - Code link : [Source Code](https://github.com/Ansh-Gupta18/QuantityMeasurementApp/tree/feature/UC4-YardEquality/src)
+
+---
+
+### UC5 – Unit-to-Unit Conversion (Same Measurement Type)
+- Branch: feature/UC5-UnitConversion
+
+-- Objective
+
+- Provide explicit conversion between units (feet ↔ inches, yards ↔ feet, centimeters ↔ inches, etc.)
+
+- Maintain DRY principle and preserve UC1–UC4 functionality
+
+- Expose a standard convert() API for all supported units
+
+- Ensure bidirectional and precise conversions with proper validation 
+
+-- Implementation
+
+- Added static convert(value, sourceUnit, targetUnit) method in QuantityLength
+
+- Validates numeric value and non-null, supported source/target units
+
+- Normalizes input to base unit (feet) before converting to target unit
+
+- Overloaded demonstrateLengthConversion() for raw values and QuantityLength instances
+
+- Ensured proper rounding, epsilon tolerance, and exception handling for invalid inputs
+
+- Preserved equals() and toString() overrides for consistent object behavior
+
+- Comprehensive JUnit 5 tests cover same-unit, cross-unit, negative, zero, large, and small conversions
+
+- Code link : [Source Code](https://github.com/Ansh-Gupta18/QuantityMeasurementApp/tree/feature/UC5-UnitConversion/src)
