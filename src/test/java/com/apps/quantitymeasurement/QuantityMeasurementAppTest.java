@@ -160,7 +160,7 @@ public class QuantityMeasurementAppTest {
         assertEquals(new Length(3.56, LengthUnit.FEET), result);
     }
 
-    // UC7 : Addition With Target Unit
+    // UC7 : Addition With Target Units
     @Test
     void addFeetAndInchesWithTargetUnitInches() {
         Length l1 = new Length(1.0, LengthUnit.FEET);
