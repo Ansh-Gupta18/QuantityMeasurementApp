@@ -43,6 +43,7 @@
 
 ### UC3 – Generic Quantity Class for DRY Principle
 - Branch: feature/UC3-GenericLength
+  
 -- Objective
 
 - Refactor Feet and Inches classes into a single QuantityLength class
@@ -75,6 +76,7 @@
 
 ### UC4 – Extended Unit Support (Yards & Centimeters)
 - Branch: feature/UC4-YardEquality
+  
 -- Objective
 
 - Extend QuantityLength class to support Yards and Centimeters
@@ -131,3 +133,27 @@
 - Comprehensive JUnit 5 tests cover same-unit, cross-unit, negative, zero, large, and small conversions
 
 - Code link : [Source Code](https://github.com/Ansh-Gupta18/QuantityMeasurementApp/tree/feature/UC5-UnitConversion/src)
+
+---
+
+### UC6 – Addition of Two Length Units (Same Category)
+- Branch: feature/UC6-UnitAddition
+   
+-- Objective
+
+- Enable addition of two QuantityLength objects, potentially with different units
+- Result is expressed in the unit of the first operand
+- Maintain DRY, immutability, and cross-unit precision
+
+-- Implementation
+
+- Added instance and static add() methods in QuantityLength
+- Validates non-null operands, valid LengthUnits, and finite values
+- Converts both operands to base unit (feet), performs addition
+- Converts sum to the unit of the first operand
+- Returns a new QuantityLength object (immutability preserved)
+- Leverages UC5 conversion logic; no duplication of conversion code
+- Overloaded methods to support raw values or QuantityLength objects
+- Handles zero, negative, large, and small values
+- Comprehensive JUnit 5 tests cover same-unit, cross-unit, commutativity, and precision
+- Code link : [Source Code](https://github.com/Ansh-Gupta18/QuantityMeasurementApp/tree/fetaure/UC6-UnitAddition/src)
