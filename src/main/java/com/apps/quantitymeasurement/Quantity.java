@@ -1,116 +1,86 @@
 package com.apps.quantitymeasurement;
 
-import java.util.Objects;
+public class Quantity<U extends IMeasurable> {
+	private double value;
+	private U unit;
+	
+	public Quantity(double value, U unit) {
+		if(Double.isNaN(value)) {
+			throw new IllegalArgumentException("Nan value!");
+		}
+		if(unit==null) {
+			throw new IllegalArgumentException("Nan value!");			
+		}
+		this.value = value;
+		this.unit = unit;
+	}
 
-public final class Quantity<U extends IMeasurable> {
+	public double getValue() {
+		return value;
+	}
 
-    private static final double ROUND_FACTOR = 100.0; 
+	public U getUnit() {
+		return unit;
+	}
+	
+	public double convertTo(U targetUnit) {
+		//convert to base unit
+		double baseUnit = this.unit.convertToBaseUnit(value);
+		//convert to target unit
+		double targetUnits = targetUnit.convertFromBaseUnit(baseUnit);
+		return targetUnits;
+		
+	}
+	
+	//add
+	public Quantity<U> add(Quantity<U> other){
+		double part1 = this.convertTo(this.unit);
+		double part2 = other.convertTo(this.unit);
+		return new Quantity<>((part1+part2),this.unit);
+	}
+	//add with target unit
+	public Quantity<U> add(Quantity<U> other, U targetUnit){
+		double part1 = this.convertTo(targetUnit);
+		double part2 = other.convertTo(targetUnit);
+		return new Quantity<>((part1+part2),targetUnit);
+	}
+	
+	//equals
+	@Override
+	public boolean equals(Object obj) {
+		if(this==obj) {
+			return true;
+		}
+		
+		if(obj==null || obj.getClass()!=this.getClass()) {
+			return false;
+		}
+		
+		// Generic cast (Suppressed warning because we checked getClass() above)
+	    @SuppressWarnings("unchecked")
+	    Quantity<U> other = (Quantity<U>) obj;
 
-    private final double value;
-    private final U unit;
+	    // Conversion Logic: Convert both to their Base Unit for comparison
+	    double baseValue1 = this.unit.convertToBaseUnit(this.value);
+	    double baseValue2 = other.unit.convertToBaseUnit(other.value);
 
-    // Constructor with validation
-    public Quantity(double value, U unit) {
-        if (unit == null) {
-            throw new IllegalArgumentException("Unit cannot be null");
-        }
-        if (Double.isNaN(value) || Double.isInfinite(value)) {
-            throw new IllegalArgumentException("Invalid numeric value");
-        }
-        this.value = value;
-        this.unit = unit;
-    }
+	    // Value comparison with a small delta for double precision errors
+	    return Math.abs(baseValue1 - baseValue2) < 0.0001;
+	}
+	
+	@Override
+	public String toString() {
+		return "Quantity [value=" + value + ", unit=" + unit + "]";
+	}
 
-    public double getValue() {
-        return value;
-    }
-
-    public U getUnit() {
-        return unit;
-    }
-
-    // Rounds a value to 2 decimal places
-    private static double round(double value) {
-        return Math.round(value * ROUND_FACTOR) / ROUND_FACTOR;
-    }
-
-    // Conversion
-    public Quantity<U> convertTo(U targetUnit) {
-        if (targetUnit == null) {
-            throw new IllegalArgumentException("Target unit cannot be null");
-        }
-        if (this.unit == targetUnit) {
-            return this;
-        }
-        double baseValue = unit.convertToBaseUnit(value);
-        double convertedValue = round(targetUnit.convertFromBaseUnit(baseValue));
-        return new Quantity<>(convertedValue, targetUnit);
-    }
-
-    // Addition (implicit target unit — result in caller's unit)
-    public Quantity<U> add(Quantity<U> other) {
-        if (other == null) {
-            throw new IllegalArgumentException("Cannot add null quantity");
-        }
-        double base1 = this.unit.convertToBaseUnit(this.value);
-        double base2 = other.unit.convertToBaseUnit(other.value);
-        double resultValue = round(this.unit.convertFromBaseUnit(base1 + base2));
-        return new Quantity<>(resultValue, this.unit);
-    }
-
-    // Addition (explicit target unit)
-    public Quantity<U> add(Quantity<U> other, U targetUnit) {
-        if (other == null) {
-            throw new IllegalArgumentException("Cannot add null quantity");
-        }
-        if (targetUnit == null) {
-            throw new IllegalArgumentException("Target unit cannot be null");
-        }
-        double base1 = this.unit.convertToBaseUnit(this.value);
-        double base2 = other.unit.convertToBaseUnit(other.value);
-        double resultValue = round(targetUnit.convertFromBaseUnit(base1 + base2));
-        return new Quantity<>(resultValue, targetUnit);
-    }
-
-    // Static addition with explicit target unit
-    public static <U extends IMeasurable> Quantity<U> add(Quantity<U> q1, Quantity<U> q2, U targetUnit) {
-        if (q1 == null || q2 == null) {
-            throw new IllegalArgumentException("Quantities cannot be null");
-        }
-        if (targetUnit == null) {
-            throw new IllegalArgumentException("Target unit cannot be null");
-        }
-        double base1 = q1.unit.convertToBaseUnit(q1.value);
-        double base2 = q2.unit.convertToBaseUnit(q2.value);
-        double resultValue = round(targetUnit.convertFromBaseUnit(base1 + base2));
-        return new Quantity<>(resultValue, targetUnit);
-    }
-
-    // Equality — category-safe (cross-category returns false)
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-
-        Quantity<?> other = (Quantity<?>) obj;
-
-        // Cross-category prevention: units must be of the same class
-        if (this.unit.getClass() != other.unit.getClass()) return false;
-
-        double base1 = round(this.unit.convertToBaseUnit(this.value));
-        double base2 = round(other.unit.convertToBaseUnit(other.value));
-
-        return Double.compare(base1, base2) == 0;
-    }
-
-    @Override
-    public int hashCode() {
-        double baseValue = round(unit.convertToBaseUnit(value));
-        return Objects.hash(unit.getClass().getName(), baseValue);
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Quantity(%.2f, %s)", value, unit.getUnitName());
-    }
+	public static void main(String args[]) {
+		Quantity<LengthUnit> unit1 = new Quantity<>(3.0,LengthUnit.FEET);
+		System.out.println(unit1.convertTo(LengthUnit.INCHES));
+		
+		Quantity<LengthUnit> unit2 = new Quantity<>(24.0,LengthUnit.INCHES);
+		Quantity<LengthUnit> unit3 = new Quantity<>(24.0,LengthUnit.INCHES);
+		System.out.println(unit2.add(unit3));
+		
+		System.out.println(unit2.add(unit3, LengthUnit.FEET));
+	}
 }
