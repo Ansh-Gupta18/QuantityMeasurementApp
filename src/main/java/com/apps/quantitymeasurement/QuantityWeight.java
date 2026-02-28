@@ -1,5 +1,7 @@
 package com.apps.quantitymeasurement;
 
+//Weight
+
 import java.util.Objects;
 
 public final class QuantityWeight {
