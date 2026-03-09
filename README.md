@@ -21,4 +21,4 @@ Implicit and explicit target unit behaviour preserved.
 Public APIs unchanged; UC12 tests pass as-is.
 DRY enforced, cleaner code, easier future extension.
 
-- Code link : (UC13 CentralizedArithmetic)[https://github.com/Ansh-Gupta18/QuantityMeasurementApp/tree/feature/UC13-CentralizedUnit/src]
+- Code link : [UC13 CentralizedArithmetic](https://github.com/Ansh-Gupta18/QuantityMeasurementApp/tree/feature/UC13-CentralizedUnit/src)
