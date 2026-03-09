@@ -1,40 +1,36 @@
-### UC12: Subtraction and Division Operations on Quantity Measurements
+### Quantity Measurement App - UC14 (Temperature Measurement with Selective Arithmetic Support)
+
+UC14 extends the Quantity Measurement Application to support temperature measurements while respecting real-world arithmetic constraints.
+Unlike length, weight, and volume, temperature does not support full arithmetic.
+This use case refactors the IMeasurable interface to make arithmetic optional, enabling temperature units to support only equality and conversion while rejecting unsupported operations with clear errors.
 
 
-Extended the generic Quantity<U extends IMeasurable> architecture to support Subtraction and Division across all measurement categories (Length, Weight, Volume).
+ - Use Case: UC14 (Temperature Measurement)
+Introduces temperature measurement support with unit conversion and equality
+Restricts unsupported arithmetic operations on temperature with clear validation
+Refactors IMeasurable to allow selective operation support while keeping existing units unchanged
 
 
--- Covered:
+-  UC14 – Key Implementation Points
+Introduced TemperatureUnit (Celsius, Fahrenheit, Kelvin) with non-linear conversion formulas.
 
-- Implemented overloaded subtract() methods
-- Implicit target unit (first operand’s unit)
-- Explicit target unit specification
-- Implemented divide() method returning a dimensionless scalar (double)
-- Enabled cross-unit arithmetic (e.g., feet − inches, kg − grams, litre − mL)
-- Normalized operands through base unit before arithmetic
-- Added strict validation (null checks, finiteness, cross-category prevention)
-- Prevented division by zero (throws ArithmeticException)
-- Preserved immutability (operations return new objects)
-- Maintained rounding consistency (2 decimal places for Quantity results)
-- Verified non-commutativity of subtraction and division
-- Ensured compatibility with addition, equality, and conversion
+Refactored IMeasurable to add default methods for optional arithmetic support.
 
--- Outcome:
+Added SupportsArithmetic functional interface with lambda-based capability flags.
 
-- Quantity system now supports full arithmetic set: add, subtract, divide
-- Generic design required no structural refactoring
-- Architecture scales seamlessly across Length, Weight, and Volume
-- SOLID principles maintained (SRP, OCP, DRY intact)
-- Cross-category operations safely rejected at compile-time + runtime
-- Demonstrated mathematical correctness (identity, inverse, non-commutativity)
-- Confirmed immutability and functional-style operations
-- Strengthened validation and fail-fast error handling
+Non-temperature units inherit default arithmetic support (backwards compatible).
 
---  SOLID / Design Validation:
+Temperature explicitly disables arithmetic (add, subtract, divide) via overrides.
 
--  SRP maintained (Quantity handles arithmetic only)
--  OCP maintained (new operations added without modifying enums)
--  DRY preserved (shared base-unit normalization logic reused)
--  Minor Improvement Area: If arithmetic logic grows further, extract shared private helper for base-unit arithmetic to avoid future duplication.
+Quantity validates operation support upfront before performing arithmetic.
 
-- 🔗 Code Link: [Source Code](https://github.com/Ansh-Gupta18/QuantityMeasurementApp/tree/feature/UC12-Subtraction-and-Division-Operations-on-Quantity-Measurements/src)
+Equality and conversion work uniformly via base-unit normalisation.
+
+Cross-category comparisons remain prohibited and type-safe.
+
+Unsupported operations fail fast with clear UnsupportedOperationException messages.
+
+All UC1–UC13 tests pass unchanged, ensuring non-breaking evolution.
+
+- Code Link: [UC14 (Temperature Measurement with Selective Arithmetic Support)](https://github.com/Ansh-Gupta18/QuantityMeasurementApp/tree/feature/UC14-TemperatureMeasurement/src)
+
