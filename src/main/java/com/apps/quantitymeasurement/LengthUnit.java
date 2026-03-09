@@ -8,15 +8,10 @@ public enum LengthUnit implements IMeasurable {
     YARDS(3.0),
     CENTIMETERS(1.0 / 30.48);
 
-    private final double conversionFactor;
+    private final double conversionFactor; // base unit = FEET
 
     LengthUnit(double conversionFactor) {
         this.conversionFactor = conversionFactor;
-    }
-
-    @Override
-    public double getConversionFactor() {
-        return conversionFactor;
     }
 
     @Override
@@ -33,4 +28,10 @@ public enum LengthUnit implements IMeasurable {
     public String getUnitName() {
         return this.name();
     }
+
+    
+    public double getConversionFactor() {
+        return conversionFactor;
+    }
+
 }
