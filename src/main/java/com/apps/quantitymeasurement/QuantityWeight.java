@@ -4,6 +4,8 @@ package com.apps.quantitymeasurement;
 
 import java.util.Objects;
 
+import com.apps.quantitymeasurement.unit.WeightUnit;
+
 public final class QuantityWeight {
 
     private static final double EPSILON = 1e-6;
