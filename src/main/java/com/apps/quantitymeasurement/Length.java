@@ -5,6 +5,8 @@ package com.apps.quantitymeasurement;
 
 import java.util.Objects;
 
+import com.apps.quantitymeasurement.unit.LengthUnit;
+
 public class Length {
 
     private static final double ROUNDING_FACTOR = 100.0;
