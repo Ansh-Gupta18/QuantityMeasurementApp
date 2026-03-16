@@ -1,6 +1,7 @@
 
 package com.apps.quantitymeasurement.unit;
 
+
 import java.util.function.Function;
 
 public enum TemperatureUnit implements IMeasurable{
@@ -52,6 +53,11 @@ public enum TemperatureUnit implements IMeasurable{
 	
 	public boolean supportsArithmetic() {
 		return supportsArithmetic.isSupported();
+	}
+	
+	@Override
+	public String getMeasurableType() {
+		return this.getClass().getSimpleName();
 	}
 	
 	@Override

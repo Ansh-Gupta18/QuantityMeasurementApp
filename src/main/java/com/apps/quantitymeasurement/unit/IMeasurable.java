@@ -1,3 +1,4 @@
+
 package com.apps.quantitymeasurement.unit;
 
 @FunctionalInterface
@@ -12,6 +13,7 @@ public interface IMeasurable {
 	double convertToBaseUnit(double value);
 	double convertFromBaseUnit(double baseValue);
 	String getUnitName();
+	String getMeasurableType();
 	
 	default boolean supportsArithmetic() {
 		return supportsArithmetic.isSupported();

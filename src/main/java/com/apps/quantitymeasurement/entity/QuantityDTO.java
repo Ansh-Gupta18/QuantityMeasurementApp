@@ -1,4 +1,7 @@
+
 package com.apps.quantitymeasurement.entity;
+
+import com.apps.quantitymeasurement.unit.IMeasurable;
 
 public class QuantityDTO {
 	
@@ -6,10 +9,15 @@ public class QuantityDTO {
 	public String unit;
 	public String measurementType;
 
+	public QuantityDTO(double value, IMeasurable unit) {
+		this.value = value;
+		this.unit = unit.getUnitName();
+		this.measurementType = unit.getMeasurableType();
+	}
 	public QuantityDTO(double value, String unit, String measurementType) {
 		this.value = value;
 		this.unit = unit;
-		this.measurementType = measurementType.toUpperCase();
+		this.measurementType = measurementType;
 	}
 
 	public double getValue() {
