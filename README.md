@@ -1,5 +1,5 @@
 ### UC15: N-Tier Architecture Refactoring  
-📅 Date: 12-Mar-2026  
+  
 
 Refactored the **Quantity Measurement Application** from a monolithic design into a **clean N-Tier architecture** to improve scalability, maintainability, and testability.
 
