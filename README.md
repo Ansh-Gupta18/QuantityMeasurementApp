@@ -1,6 +1,4 @@
-## 🚀 UC17: Spring Boot REST API Integration
-
-📅 Date: 24-Mar-2026  
+## 🚀 UC17: Spring Boot REST API Integration  
 
 Upgraded the **Quantity Measurement Application** to a **Spring Boot REST API**, replacing JDBC with **Spring Data JPA** for a scalable, enterprise-ready backend.
 
