@@ -1,5 +1,5 @@
 ### UC16: JDBC Database Integration & Persistence  
-📅 Date: 17-Mar-2026  
+  
 
 Enhanced the **Quantity Measurement Application** by integrating **JDBC-based database persistence** into the existing N-Tier architecture, replacing in-memory storage with a scalable and secure relational database solution.
 
