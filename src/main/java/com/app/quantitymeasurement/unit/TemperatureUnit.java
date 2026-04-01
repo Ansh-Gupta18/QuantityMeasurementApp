@@ -1,5 +1,4 @@
 
-
 package com.app.quantitymeasurement.unit;
 
 import java.util.function.Function;
